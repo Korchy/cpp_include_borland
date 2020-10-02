@@ -3,6 +3,9 @@
 #define LogFileH
 //---------------------------------------------------------------------------
 #include <Classes.hpp>  // Для использования стандартных С++ типов (AnsiString)
+#include <stdio.h>	// files i/o
+#include <fstream>
+#include <iostream>
 //---------------------------------------------------------------------------
 class LogFile
 {

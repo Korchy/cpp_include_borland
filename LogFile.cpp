@@ -18,27 +18,19 @@ __fastcall LogFile::~LogFile()
 
 }
 //---------------------------------------------------------------------------
-bool LogFile::Add(AnsiString String)
-{
+bool LogFile::Add(AnsiString String) {
         // Добавление строки в ЛОГ
-if(String!="") {
-        TStringList* Log = new TStringList();
-        if(FileExists(Path+"\\"+FileName+".log")==true) Log->LoadFromFile(Path+"\\"+FileName+".log");
-        else Log->Clear();
-        Log->Add(DateToStr(Date()) + ":" + TimeToStr(Time()) + " " + String);
-        Log->SaveToFile(Path+"\\"+FileName+".log");
-        delete Log;
-        }
+std::ofstream LogPtr;
+LogPtr.open((Path+"\\"+FileName+".log").c_str(), std::ios::app); // append instead of overwrite
+LogPtr << (DateToStr(Date()) + ":" + TimeToStr(Time()) + " " + String + "\r").c_str();
 return true;
 }
 //---------------------------------------------------------------------------
-bool LogFile::Clear()
-{
+bool LogFile::Clear() {
         // Удаление всех записей из ЛОГа
-TStringList* Log = new TStringList();
-Log->Clear();
-Log->SaveToFile(Path+"\\"+FileName+".log");
-delete Log;
+std::ofstream LogPtr;
+LogPtr.open((Path+"\\"+FileName+".log").c_str(), std::ofstream::out | std::ofstream::trunc);
+LogPtr.close();
 return true;
 }
 //---------------------------------------------------------------------------
